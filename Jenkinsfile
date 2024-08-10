@@ -19,34 +19,34 @@ pipeline {
         }
     }
 }
-//         stage('Terraform plan') {
-//             steps {
-//                 withCredentials([[$class: AmazonWebServicesCredentialsBinding, credentialsId: "${AWS_CREDENTIALS_ID}"]]){
-//                     sh """
-//                         sudo cd ${TERRAFORM_DIR}
-//                         sudo terraform plan
-//                     """ 
-//                 }
-//             }
-//         }
+        stage('Terraform plan') {
+            steps {
+                withCredentials([[$class: AmazonWebServicesCredentialsBinding, credentialsId: "${AWS_CREDENTIALS_ID}"]]){
+                    sh """
+                        #sudo cd ${TERRAFORM_DIR}
+                        sudo terraform plan
+                    """ 
+                }
+            }
+        }
     
-//         stage('Terraform Apply') {
-//             steps {
-//                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${AWS_CREDENTIALS_ID}"]]){
-//                     sh """
-//                         sudo cd ${TERRAFORM_DIR}
-//                         sudo terraform apply -auto-approve
-//                     """
-//                 }
-//             }
-//         }
-//     } 
-//     post { 
-//         success {
-//             echo 'Terraform apply completed successfully'
-//         }
-//         failure {
-//             echo 'Terraform apply failed'
-//         }
-//     }
-// }
+        stage('Terraform Apply') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${AWS_CREDENTIALS_ID}"]]){
+                    sh """
+                        #sudo cd ${TERRAFORM_DIR}
+                        sudo terraform apply -auto-approve
+                    """
+                }
+            }
+        }
+    } 
+    post { 
+        success {
+            echo 'Terraform apply completed successfully'
+        }
+        failure {
+            echo 'Terraform apply failed'
+        }
+    }
+}
