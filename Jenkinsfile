@@ -17,8 +17,7 @@ pipeline {
                 }
             }
         }
-    }
-}
+
         stage('Terraform plan') {
             steps {
                 withCredentials([[$class: AmazonWebServicesCredentialsBinding, credentialsId: "${AWS_CREDENTIALS_ID}"]]){
@@ -50,3 +49,4 @@ pipeline {
         }
     }
 }
+
