@@ -17,5 +17,24 @@ pipeline {
                 }
             }
         }
-    }
+        stage('Terraform plan') {
+            steps {
+                withCredentials([[$class: AmazonWebServicesCredentialsBinding, credentialsId: "${AWS_CREDENTIALS_ID}"]]){
+                    sh """
+                    cd ${TERRAFORM_DIR}
+                    terraform plan
+                    """ 
+                }
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${AWS_CREDENTIALS_ID}"]]){
+                    sh """
+                    cd ${TERRAFORM_DIR}
+                    terraform apply -auto-approve
+                }
+            }
+        }
+    }   
 }
