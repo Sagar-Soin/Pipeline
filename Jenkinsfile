@@ -11,9 +11,9 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${AWS_CREDENTIALS_ID}"]]){
                   sh """
-                    cd ${TERRAFORM_DIR}
-                    terraform init
-                    """
+                        sudo cd ${TERRAFORM_DIR}
+                        sudo terraform init
+                  """
                 }
             }
         }
@@ -21,8 +21,8 @@ pipeline {
             steps {
                 withCredentials([[$class: AmazonWebServicesCredentialsBinding, credentialsId: "${AWS_CREDENTIALS_ID}"]]){
                     sh """
-                    cd ${TERRAFORM_DIR}
-                    terraform plan
+                        sudo cd ${TERRAFORM_DIR}
+                        sudo terraform plan
                     """ 
                 }
             }
@@ -32,8 +32,8 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${AWS_CREDENTIALS_ID}"]]){
                     sh """
-                    cd ${TERRAFORM_DIR}
-                    terraform apply -auto-approve
+                        sudo cd ${TERRAFORM_DIR}
+                        sudo terraform apply -auto-approve
                     """
                 }
             }
