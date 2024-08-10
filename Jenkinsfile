@@ -11,7 +11,7 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${AWS_CREDENTIALS_ID}"]]){
                         dir("${TERRAFORM_DIR}") {
-                        sh 'terraform init'
+                        sh 'terraform init -reconfigure'
                         }
                 }
             }
