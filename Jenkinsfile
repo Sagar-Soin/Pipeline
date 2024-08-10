@@ -10,10 +10,9 @@ pipeline {
         stage('Terraform init') {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${AWS_CREDENTIALS_ID}"]]){
-                  sh """
-                        sudo cd ${TERRAFORM_DIR}
-                        sudo terraform init
-                  """
+                        dir("${TERRAFORM_DIR}") {
+                        sh 'terraform init'
+                        }
                 }
             }
         }
@@ -21,10 +20,9 @@ pipeline {
         stage('Terraform plan') {
             steps {
                 withCredentials([[$class: AmazonWebServicesCredentialsBinding, credentialsId: "${AWS_CREDENTIALS_ID}"]]){
-                    sh """
-                        #sudo cd ${TERRAFORM_DIR}
-                        sudo terraform plan
-                    """ 
+                         dir("${TERRAFORM_DIR}") {
+                         sh 'terraform plan'
+                         }
                 }
             }
         }
@@ -32,10 +30,9 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${AWS_CREDENTIALS_ID}"]]){
-                    sh """
-                        #sudo cd ${TERRAFORM_DIR}
-                        sudo terraform apply -auto-approve
-                    """
+                         dir("${TERRAFORM_DIR}") {
+                         sh 'terraform apply --auto-approve'
+                         }
                 }
             }
         }
